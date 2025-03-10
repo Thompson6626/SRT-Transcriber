@@ -1,0 +1,11 @@
+openai-whisper
+
+ffmpeg
+ffmpeg-python
+
+cutlet
+fugashi[unidic-lite]
+
+python-vlc
+
+sounddevice

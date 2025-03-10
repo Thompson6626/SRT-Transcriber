@@ -1,16 +1,18 @@
-# This is a sample Python script.
+import whisper
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+print("Loading model...")
+model = whisper.load_model("turbo", device="cuda")
+print("Model loaded. Starting transcription...")
 
+result = model.transcribe("Ishura.mp3", language="ja", verbose=True)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+print("Transcription completed. Saving to file...")
 
+with open("transcriptions/transcriptionishura.txt", "w", encoding="utf-8") as f:
+    for segment in result["segments"]:
+        start = segment["start"]
+        end = segment["end"]
+        text = segment["text"]
+        f.write(f"[{start:.2f} --> {end:.2f}] {text}\n")
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+print("Transcription saved.")
