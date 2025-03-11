@@ -2,6 +2,7 @@
 .idea
 
 # Video files
+video
 *.mp3
 *.mkv
 

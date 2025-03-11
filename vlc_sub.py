@@ -1,36 +1,25 @@
-import vlc
-import time
+import subprocess
 
-# Create an instance of VLC media player
-player = vlc.MediaPlayer()
+def embed_subtitles(video_file, subtitle_file, output_file):
+    command = [
+        "ffmpeg",
+        "-i", video_file,      # Input video file
+        "-f", "srt",           # Subtitle format
+        "-i", subtitle_file,   # Input subtitle file
+        "-map", "0:0",         # Map video stream
+        "-map", "0:1",         # Map audio stream
+        "-map", "1:0",         # Map subtitle stream
+        "-c:v", "copy",        # Copy video (no re-encoding)
+        "-c:a", "copy",        # Copy audio (no re-encoding)
+        "-c:s", "srt",         # Convert subtitles to SRT format
+        output_file            # Output MKV file
+    ]
 
-# Load an MKV file with embedded or external subtitles
-media = vlc.Media("Ish.mkv")  # Replace with your MKV file path
-player.set_media(media)
+    try:
+        subprocess.run(command, check=True)
+        print(f"✅ Subtitles embedded successfully into {output_file}")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Error: {e}")
 
-# Start playing the video
-player.play()
-
-# Wait for VLC to load and start the media
-time.sleep(3)
-
-# Get the number of available subtitle tracks
-subtitle_tracks = player.video_get_spu()
-
-if subtitle_tracks == -1:
-    print("No subtitles available.")
-else:
-    print("Available subtitle tracks:")
-    # Loop through the available tracks and print their descriptions (names)
-    for track_id in range(subtitle_tracks):
-        description = player.video_get_spu_description()
-        print(f"Track {track_id}: {description}")
-
-    # Optionally, select a specific subtitle (for example, track 0)
-    player.set_spu(0)
-
-# Let the video play for a few seconds
-time.sleep(5)
-
-# Stop the player
-player.stop()
+# Example usage:
+embed_subtitles("input.mp4", "input.srt", "output.mkv")

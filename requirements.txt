@@ -9,3 +9,6 @@ fugashi[unidic-lite]
 python-vlc
 
 sounddevice
+fastapi[standard]
+python-multipart
+uvicorn
