@@ -3,16 +3,20 @@ openai-whisper
 ffmpeg
 ffmpeg-python
 
+# Cutlet
 cutlet
 fugashi[unidic-lite]
 
 python-vlc
-
 sounddevice
+
 fastapi[standard]
+uvicorn
 python-multipart
+
 transformers
 torch
+torchvision 
+torchaudio
 sentencepiece
-uvicorn
 sacremoses

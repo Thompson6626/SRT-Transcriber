@@ -17,6 +17,7 @@ type Whisper_Result = dict[str, str | list[dict[str, int]]]
 class TranscriptionService:
 
     def __init__(self, text_converter_service: TextConverterService, translator: TranslatorService):
+        # Models are found here https://github.com/openai/whisper
         self.model = whisper.load_model("base", device="cuda")
         self.text_converter = text_converter_service
         self.text_translator = translator
