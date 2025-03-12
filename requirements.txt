@@ -11,4 +11,8 @@ python-vlc
 sounddevice
 fastapi[standard]
 python-multipart
+transformers
+torch
+sentencepiece
 uvicorn
+sacremoses

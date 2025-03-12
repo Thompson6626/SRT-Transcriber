@@ -9,5 +9,15 @@ video
 # Txt
 transcriptions
 
-# Python environemnt
-venv
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd

@@ -1,5 +1,4 @@
 import mimetypes
-
 from fastapi import UploadFile, HTTPException
 
 ALLOWED_EXTENSIONS = {
@@ -39,15 +38,21 @@ ALLOWED_MIME_TYPES = {
 }
 
 
+class FileValidatorService:
 
-def is_valid_transformable(file: UploadFile):
+    async def can_be_transformed_to_mp3(self, file: UploadFile):
+        mime_type, _ = mimetypes.guess_type(file.filename)
 
-    mime_type, _ = mimetypes.guess_type(file.filename)
-    print(mime_type)
-    if mime_type not in ALLOWED_MIME_TYPES:
-        raise HTTPException(status_code=400, detail=f"Invalid file format. Allowed: {', '.join(ALLOWED_MIME_TYPES)}")
+        if mime_type not in ALLOWED_MIME_TYPES:
+            raise HTTPException(status_code=400,
+                                detail=f"Invalid file format. Allowed: {', '.join(ALLOWED_MIME_TYPES)}")
 
-    extension_with_dot = f".{file.filename.rsplit(".", maxsplit=1)[-1]}"
-    print(extension_with_dot)
-    if extension_with_dot not in ALLOWED_EXTENSIONS:
-        return HTTPException(status_code=400, detail=f"Invalid file format. Allowed: {', '.join(ALLOWED_EXTENSIONS)}")
+        extension_with_dot = f".{file.filename.rsplit(".", maxsplit=1)[-1]}"
+
+        if extension_with_dot not in ALLOWED_EXTENSIONS:
+            return HTTPException(status_code=400,
+                                 detail=f"Invalid file format. Allowed: {', '.join(ALLOWED_EXTENSIONS)}")
+
+
+    def is_srt(self, file: UploadFile):
+        return None
