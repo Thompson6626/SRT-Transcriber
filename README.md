@@ -127,7 +127,9 @@ Or just use postman or any other API client
 
 To start the FastAPI server:
 
-![Gif of the fastapi cli running](assets/fastapi-cli.gif)
+```bash
+fastapi dev app/main.py
+```
 
 By default, the API will be available at [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
@@ -147,4 +149,8 @@ Feel free to fork this repository and submit issues or pull requests. Contributi
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-|
+
+# TODO
+
+Planning to add srt specific endpoint and add the Deepl api as translator too.
+And of course improving it further.
