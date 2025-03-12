@@ -8,10 +8,6 @@ from fastapi.responses import FileResponse
 from .dependencies import get_file_validator_service, get_file_converter_service, get_transcription_service
 from .services import FileValidatorService, FileConverterService, TranscriptionService
 
-import logging
-
-# Set up logger
-logger = logging.getLogger(__name__)
 
 router = APIRouter(
     prefix="/transcribe",
