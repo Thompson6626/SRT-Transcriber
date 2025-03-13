@@ -1,6 +1,6 @@
 from io import BytesIO
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Optional
 
 from fastapi import APIRouter, UploadFile, Depends, Query, HTTPException
 from fastapi.responses import FileResponse
@@ -25,7 +25,7 @@ async def transcribe_to_srt(
         file_validator: FileValidatorService = Depends(get_file_validator_service),
         file_converter: FileConverterService = Depends(get_file_converter_service),
         transcriber: TranscriptionService = Depends(get_transcription_service),
-        origin_language: str = Query(..., min_length=2, max_length=5, regex="^[a-z]{2,5}$")
+        origin_language: Optional[str] = Query(None, min_length=2, max_length=5, regex="^[a-z]{2,5}$")
 ):
     """Endpoint to transcribe an audio file to SRT format using Whisper."""
 
@@ -34,8 +34,10 @@ async def transcribe_to_srt(
     # Convert file to MP3 (await since it's an async operation)
     mp3_file: BytesIO = await file_converter.convert_to_mp3(file)
 
+
     # Extract filename without extension
     filename = Path(file.filename).stem
+
 
     # Perform transcription
     transcribed_file_path = transcriber.transcribe_to_normal_srt(mp3_file, filename, origin_language)

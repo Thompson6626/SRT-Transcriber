@@ -15,21 +15,24 @@ This project is a FastAPI-based web service that allows you to transcribe audio 
 - **Python 3.7+**
 - **FastAPI**
 - **Uvicorn** (for running the server)
-- **Whisper** API for transcription
+- **Faster-Whisper** a reimplementation of OpenAI's Whisper model using CTranslate2,
 - **MarianMT** (Hugging Face's translation model) for translation
 - **Cutlet** for japanese to romaji conversion
-- **Ffmpeg** for video to mp3 conversion
 
 ## Installation
 
 ## Important Notice
 
-To ensure that Whisper works correctly, you will need to have **FFmpeg** installed on your system. FFmpeg is required for audio and video file processing. 
+Unlike openai-whisper, FFmpeg does not need to be installed on the system. The audio is decoded with the Python library PyAV which bundles the FFmpeg libraries in its package.
 
-You can download FFmpeg from the official website: [FFmpeg Download](https://ffmpeg.org/download.html)
+### GPU
 
-Please follow the installation instructions on the website based on your operating system.
+GPU execution requires the following NVIDIA libraries to be installed:
 
+* [cuBLAS for CUDA 12](https://developer.nvidia.com/cublas)
+* [cuDNN 9 for CUDA 12](https://developer.nvidia.com/cudnn)
+
+For more information see faster-whisper's repository https://github.com/SYSTRAN/faster-whisper.
 
 ### Clone the repository
 
@@ -140,15 +143,7 @@ You can check the automatic API documentation by visiting [http://127.0.0.1:8000
 
 ## Testing the Application
 
-You can test the application using any HTTP client (e.g., [Postman](https://www.postman.com/) or [curl](https://curl.se/)) to send POST requests to the available endpoints. For example, to test the `/srt` endpoint, you can use the `curl` command from above.
-
-## Contributing
-
-Feel free to fork this repository and submit issues or pull requests. Contributions are welcome!
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+You can test the application using any HTTP client (e.g., [Postman](https://www.postman.com/) or [curl](https://curl.se/)) to send POST requests to the available endpoints. For example, to test the `transcribe/srt` endpoint, you can use the `curl` command from above.
 
 # TODO
 
