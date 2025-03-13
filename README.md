@@ -142,14 +142,6 @@ You can check the automatic API documentation by visiting [http://127.0.0.1:8000
 
 You can test the application using any HTTP client (e.g., [Postman](https://www.postman.com/) or [curl](https://curl.se/)) to send POST requests to the available endpoints. For example, to test the `/srt` endpoint, you can use the `curl` command from above.
 
-## Contributing
-
-Feel free to fork this repository and submit issues or pull requests. Contributions are welcome!
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 # TODO
 
 Planning to add srt specific endpoint and add the Deepl api as translator too.
