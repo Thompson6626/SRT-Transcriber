@@ -4,6 +4,7 @@ import tempfile
 from io import BytesIO
 from pathlib import Path
 from typing import Callable
+import torch
 from faster_whisper import WhisperModel
 
 from .text_converter_service import TextConverterService
@@ -17,7 +18,16 @@ logger = logging.getLogger(__name__)
 
 class TranscriptionService:
     def __init__(self, text_converter_service: TextConverterService, translator: TranslatorService):
-        self.model = WhisperModel("medium", device="cuda", compute_type="float16")
+        
+        # Check if CUDA is available; fallback to CPU if not
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+
+        # Load the Whisper model
+        self.model = WhisperModel("medium", device=device, compute_type="float16" if device == "cuda" else "float32")
+        # Note: If you don't have an NVIDIA GPU with CUDA installed, 
+        # forcing 'cuda' will result in an error. This setup automatically 
+        # falls back to CPU when CUDA isn't available.
+
         self.text_converter = text_converter_service
         self.text_translator = translator
 
