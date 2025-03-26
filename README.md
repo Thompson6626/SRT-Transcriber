@@ -134,7 +134,6 @@ fastapi dev app/main.py
 By default, the API will be available at [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 You can check the automatic API documentation by visiting [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
-"""
 
 ---
 
